@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Welcome from './components/Welcome';
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Welcome from './components/Welcome';
+import AddBook from './components/AddBook';
 
 function App() {
   const [userName, setUserName] = useState('Marlon');
@@ -16,9 +18,17 @@ function App() {
   ]);
   return (
     <div className='App'>
-      <Welcome userName={userName} bookList={bookList} />
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <Welcome userName={userName} bookList={bookList} />
+          </Route>
+          <Route exact path='/addbook'>
+            <AddBook bookList={bookList} setBookList={setBookList} />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
-
 export default App;
