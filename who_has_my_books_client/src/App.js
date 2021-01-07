@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import AddBook from './components/AddBook';
+import LoginPage from './components/Loginpage';
 
 function App() {
-  const [userName, setUserName] = useState('Marlon');
+  const [userName, setUserName] = useState({ name: 'Marlon', token: '123' });
   const [bookList, setBookList] = useState([
     {
       author: 'Einar Thomasen',
@@ -16,12 +17,18 @@ function App() {
       isbn: '12345678',
     },
   ]);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className='App'>
       <Router>
         <Switch>
           <Route exact path='/'>
-            <Welcome userName={userName} bookList={bookList} />
+            {loggedIn ? (
+              <Welcome userName={userName} bookList={bookList} />
+            ) : (
+              <LoginPage />
+            )}
           </Route>
           <Route exact path='/addbook'>
             <AddBook bookList={bookList} setBookList={setBookList} />
