@@ -28,10 +28,10 @@ const getBooksForUser = async (req, res) => {
 
 const addBooksForUser = async (req, res) => {
   console.log(req.body);
-  const bookList = JSON.parse(req.body.bookList);
+
   await UserDocument.findOneAndUpdate(
     { username: req.body.username },
-    { bookList: bookList }
+    { bookList: req.body.bookList }
   );
   res.send(req.body.bookList);
 };
